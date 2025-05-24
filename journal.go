@@ -47,9 +47,10 @@ func main() {
 func listNotes() {
 	fmt.Println("All notes: ")
 	i := 0
-	for k := range notes {
+	for k, v := range notes {
 		i++
 		fmt.Printf("%d: %s\n", i, k)
+		fmt.Println(v)
 	}
 }
 
