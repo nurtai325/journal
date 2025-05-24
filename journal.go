@@ -41,6 +41,7 @@ func main() {
 		addNote()
 	default:
 	}
+
 	fmt.Println()
 }
 
@@ -55,16 +56,26 @@ func listNotes() {
 }
 
 func addNote() {
-	var title string
-	var content string
+	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Print("Title: ")
-	fmt.Scanln(&title)
+	title, err := reader.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println()
 
 	fmt.Print("Content: ")
-	fmt.Scanln(&content)
+	content, err := reader.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
 
-	notes[title] = content
+	notes[removeNewLine(title)] = removeNewLine(content)
+}
+
+func removeNewLine(input string) string {
+	return input[:len(input)-1]
 }
 
 func readNotes() {
@@ -100,7 +111,7 @@ func writeNotes() {
 	fmt.Println("Writing notes...")
 	data := ""
 	for k, v := range notes {
-		data += k + keyValSep + v
+		data += k + keyValSep + v + "\n"
 	}
 	cipherText := encrypt(data)
 	err := os.WriteFile(dataFilePath, cipherText, dataFilePerm)
