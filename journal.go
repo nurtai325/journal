@@ -52,6 +52,7 @@ func listNotes() {
 		i++
 		fmt.Printf("%d: %s\n", i, k)
 		fmt.Println(v)
+		fmt.Println()
 	}
 }
 
