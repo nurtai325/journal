@@ -26,6 +26,7 @@ var (
 
 func main() {
 	if len(os.Args) == 1 {
+		printUsage()
 		return
 	}
 
@@ -40,9 +41,16 @@ func main() {
 	case "add":
 		addNote()
 	default:
+		printUsage()
 	}
 
 	fmt.Println()
+}
+
+func printUsage() {
+	fmt.Println("Usage:")
+	fmt.Println("    list    list all notes")
+	fmt.Println("    add     add a new note")
 }
 
 func listNotes() {
