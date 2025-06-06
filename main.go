@@ -40,6 +40,8 @@ func main() {
 		listNotes()
 	case "add":
 		addNote()
+	case "delete":
+		deleteNote()
 	default:
 		printUsage()
 	}
@@ -81,6 +83,19 @@ func addNote() {
 	}
 
 	notes[removeNewLine(title)] = removeNewLine(content)
+}
+
+func deleteNote() {
+	reader := bufio.NewReader(os.Stdin)
+
+	fmt.Print("Title: ")
+	title, err := reader.ReadString('\n')
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println()
+
+	delete(notes, removeNewLine(title))
 }
 
 func removeNewLine(input string) string {
